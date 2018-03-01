@@ -1,21 +1,30 @@
 /*
  * main.c
  *
- *  Created on: Feb 19, 2018
+ *  Created on: Feb 24, 2018
  *      Author: Michael Tharwat
  */
-
-#include <avr/io.h>
-#include <util/delay.h>
-#include "Standard_Type.h"
+#include "ADC_int.h"
 #include "CommonMacros.h"
+#include "Standard_Type.h"
 #include "DIO_int.h"
 #include "LCD_int.h"
 
 int main (void)
 {
+	u8 Digital , Analog, Temp;
 	LCD_vidInit();
-	LCD_vidGOTO(2,5);
-	LCD_vidWriteString("Hello");
-	while (1);
+	ADC_vidInit();
+	while(1)
+	{
+	Digital=ADC_u8GetResult();
+	Analog=(Digital*5000)/256;
+	Temp=Analog/10;
+	LCD_vidGOTO(1,0);
+	LCD_vidWriteString("Temp=");
+	LCD_vidWriteData((Temp/10)+0x30);
+	LCD_vidWriteData((Temp%10)+0x30);
+	}
+	return 0;
 }
+

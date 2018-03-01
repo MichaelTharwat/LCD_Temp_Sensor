@@ -11,9 +11,9 @@
 #define LCD_PORT		D
 #define LCD_CTRLPORT	A
 #define CLR_LCD			0x01
-#define RS	0
-#define RW	1
-#define E	2
+#define RS	5
+#define RW	6
+#define E	7
 
 void LCD_vidInit(void);
 void LCD_vidSendCommand(u8 Command);
